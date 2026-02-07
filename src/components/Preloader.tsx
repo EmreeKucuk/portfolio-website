@@ -1,0 +1,83 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+
+export function Preloader() {
+  const preloaderRef = useRef<HTMLDivElement>(null)
+  const textRef = useRef<HTMLDivElement>(null)
+  const progressRef = useRef<HTMLDivElement>(null)
+  const counterRef = useRef<HTMLSpanElement>(null)
+  const [isComplete, setIsComplete] = useState(false)
+
+  useEffect(() => {
+    const preloader = preloaderRef.current
+    const text = textRef.current
+    const progress = progressRef.current
+    const counter = counterRef.current
+
+    if (!preloader || !text || !progress || !counter) return
+
+    const tl = gsap.timeline()
+
+    // Animate counter
+    const counterAnim = { value: 0 }
+    
+    tl.to(counterAnim, {
+      value: 100,
+      duration: 2.5,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        counter.textContent = Math.round(counterAnim.value).toString().padStart(3, '0')
+      },
+    })
+    .to(progress, {
+      scaleX: 1,
+      duration: 2.5,
+      ease: 'power2.inOut',
+    }, 0)
+    .to(text, {
+      y: -20,
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power2.in',
+    })
+    .to(preloader, {
+      yPercent: -100,
+      duration: 1,
+      ease: 'power4.inOut',
+      onComplete: () => setIsComplete(true),
+    })
+
+    // Prevent scrolling during preloader
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
+  if (isComplete) return null
+
+  return (
+    <div 
+      ref={preloaderRef}
+      className="fixed inset-0 z-[9999] bg-primary flex flex-col items-center justify-center"
+    >
+      <div ref={textRef} className="text-center">
+        <div className="font-display text-xl tracking-[0.3em] text-muted mb-8 uppercase">
+          Loading Experience
+        </div>
+        <div className="font-mono text-7xl md:text-8xl font-light text-highlight mb-12">
+          <span ref={counterRef}>000</span>
+        </div>
+        <div className="w-48 h-[1px] bg-white/10 overflow-hidden">
+          <div 
+            ref={progressRef}
+            className="h-full bg-white origin-left scale-x-0"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
