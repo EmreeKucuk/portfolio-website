@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -472,8 +472,21 @@ export function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
   const horizontalRef = useRef<HTMLDivElement>(null)
   const panelsRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    // Don't use horizontal scroll on mobile
+    if (isMobile) return
+
     const section = sectionRef.current
     const horizontal = horizontalRef.current
     const panels = panelsRef.current
@@ -483,7 +496,7 @@ export function Projects() {
     const panelElements = panels.querySelectorAll('.project-panel')
     const totalWidth = panelElements.length * window.innerWidth
 
-    // Horizontal scroll animation
+    // Horizontal scroll animation - desktop only
     const horizontalScroll = gsap.to(panels, {
       x: () => -(totalWidth - window.innerWidth),
       ease: 'none',
@@ -547,12 +560,12 @@ export function Projects() {
         }
       })
     }
-  }, [])
+  }, [isMobile])
 
   return (
     <section ref={sectionRef} id="projects" className="relative">
       {/* Section header */}
-      <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <div className="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="flex items-center gap-6 mb-8">
           <span className="font-mono text-xs text-muted tracking-widest">02</span>
           <div className="h-px w-24 bg-white/20" />
@@ -563,86 +576,144 @@ export function Projects() {
         </h2>
       </div>
 
-      {/* Horizontal scroll container */}
-      <div ref={horizontalRef} className="relative overflow-hidden">
-        <div ref={panelsRef} className="flex">
+      {/* Mobile: Vertical layout */}
+      {isMobile ? (
+        <div className="px-6 pb-16 space-y-16">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="project-panel flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 md:px-12"
+              className="space-y-6"
             >
-              <div className="max-w-7xl w-full grid md:grid-cols-2 gap-12 md:gap-24 items-center">
-                {/* Content */}
-                <div className="panel-content space-y-8">
-                  <div className="flex items-center gap-4">
-                    <span className="font-mono text-sm text-muted">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-sm text-muted">/</span>
-                    <span className="font-mono text-sm text-muted">
-                      {String(projects.length).padStart(2, '0')}
-                    </span>
-                  </div>
-
-                  <div>
-                    <p className="font-mono text-xs text-muted tracking-widest uppercase mb-4">
-                      {project.category}
-                    </p>
-                    <h3 className="font-display text-3xl md:text-5xl font-medium text-highlight mb-6">
-                      {project.title}
-                    </h3>
-                    <p className="text-body-md text-muted max-w-lg">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-xs font-mono text-muted border border-white/10 rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 text-sm text-highlight hover:opacity-70 transition-opacity group"
-                  >
-                    <span>View Project</span>
-                    <svg 
-                      className="w-4 h-4 transition-transform group-hover:translate-x-1" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </a>
-                </div>
-
-                {/* Visualization */}
-                <div className="panel-viz glass-panel p-8 aspect-video">
-                  <ProjectVisualization type={project.visualization} />
-                </div>
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-sm text-muted">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="text-sm text-muted">/</span>
+                <span className="font-mono text-sm text-muted">
+                  {String(projects.length).padStart(2, '0')}
+                </span>
               </div>
+
+              <div>
+                <p className="font-mono text-xs text-muted tracking-widest uppercase mb-3">
+                  {project.category}
+                </p>
+                <h3 className="font-display text-2xl font-medium text-highlight mb-4">
+                  {project.title}
+                </h3>
+                <p className="text-body-sm text-muted">
+                  {project.description}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 text-xs font-mono text-muted border border-white/10 rounded-full"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 text-sm text-highlight hover:opacity-70 transition-opacity group"
+              >
+                <span>View Project</span>
+                <svg 
+                  className="w-4 h-4 transition-transform group-hover:translate-x-1" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+
+              {/* Divider */}
+              {index < projects.length - 1 && (
+                <div className="h-px w-full bg-white/10 mt-8" />
+              )}
             </div>
           ))}
         </div>
-      </div>
+      ) : (
+        /* Desktop: Horizontal scroll container */
+        <div ref={horizontalRef} className="relative overflow-hidden">
+          <div ref={panelsRef} className="flex">
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className="project-panel flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 md:px-12"
+              >
+                <div className="max-w-7xl w-full grid md:grid-cols-2 gap-12 md:gap-24 items-center">
+                  {/* Content */}
+                  <div className="panel-content space-y-8">
+                    <div className="flex items-center gap-4">
+                      <span className="font-mono text-sm text-muted">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-sm text-muted">/</span>
+                      <span className="font-mono text-sm text-muted">
+                        {String(projects.length).padStart(2, '0')}
+                      </span>
+                    </div>
 
-      {/* Progress indicator */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:flex gap-2" style={{ display: 'none' }}>
-        {projects.map((_, i) => (
-          <div key={i} className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-white/50 rounded-full" style={{ width: '0%' }} />
+                    <div>
+                      <p className="font-mono text-xs text-muted tracking-widest uppercase mb-4">
+                        {project.category}
+                      </p>
+                      <h3 className="font-display text-3xl md:text-5xl font-medium text-highlight mb-6">
+                        {project.title}
+                      </h3>
+                      <p className="text-body-md text-muted max-w-lg">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-xs font-mono text-muted border border-white/10 rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 text-sm text-highlight hover:opacity-70 transition-opacity group"
+                    >
+                      <span>View Project</span>
+                      <svg 
+                        className="w-4 h-4 transition-transform group-hover:translate-x-1" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  {/* Visualization */}
+                  <div className="panel-viz glass-panel p-8 aspect-video">
+                    <ProjectVisualization type={project.visualization} />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </section>
   )
 }

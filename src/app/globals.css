@@ -168,18 +168,7 @@ body {
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
-}
-
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--color-highlight);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease-out;
+  transition: transform 0.1s ease-out;
 }
 
 /* Tech stack node animations */

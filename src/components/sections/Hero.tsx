@@ -3,8 +3,11 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { siteContent } from '@/content/siteContent'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { hero } = siteContent
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -142,7 +145,7 @@ export function Hero() {
     window.addEventListener('mousemove', handleMouseMove)
 
     // Text animations
-    const tl = gsap.timeline({ delay: 3 })
+    const tl = gsap.timeline({ delay: 1.8 })
 
     // Split name into characters for animation
     const nameChars = name.textContent?.split('') || []
@@ -209,12 +212,12 @@ export function Hero() {
           className="font-display text-display-xl font-medium text-highlight mb-6 overflow-hidden"
           style={{ perspective: '1000px' }}
         >
-          Emre Küçük
+          {hero.name}
         </h1>
         
         <div ref={subtitleRef} className="overflow-hidden">
           <p className="font-mono text-sm md:text-base text-muted tracking-[0.2em] uppercase">
-            Engineering Intelligent Systems
+            {hero.subtitle}
           </p>
         </div>
       </div>
@@ -222,7 +225,7 @@ export function Hero() {
       {/* Scroll indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20">
         <div className="flex flex-col items-center gap-3">
-          <span className="text-xs text-muted tracking-widest uppercase">Scroll</span>
+          <span className="text-xs text-muted tracking-widest uppercase">{hero.scrollIndicator}</span>
           <div className="w-px h-12 bg-gradient-to-b from-muted to-transparent animate-pulse" />
         </div>
       </div>

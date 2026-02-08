@@ -3,59 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { siteContent, TechCategory } from '@/content/siteContent'
 
 gsap.registerPlugin(ScrollTrigger)
 
-interface TechCategory {
-  name: string
-  items: {
-    name: string
-    level: 'expert' | 'advanced' | 'proficient'
-  }[]
-}
-
-const techCategories: TechCategory[] = [
-  {
-    name: 'Languages',
-    items: [
-      { name: 'Python', level: 'expert' },
-      { name: 'TypeScript', level: 'advanced' },
-      { name: 'JavaScript', level: 'advanced' },
-      { name: 'Java', level: 'proficient' },
-      { name: 'C++', level: 'proficient' },
-    ],
-  },
-  {
-    name: 'ML & AI',
-    items: [
-      { name: 'TensorFlow', level: 'expert' },
-      { name: 'PyTorch', level: 'advanced' },
-      { name: 'Scikit-learn', level: 'expert' },
-      { name: 'OpenCV', level: 'advanced' },
-      { name: 'Keras', level: 'advanced' },
-    ],
-  },
-  {
-    name: 'Web & Frameworks',
-    items: [
-      { name: 'React', level: 'advanced' },
-      { name: 'Next.js', level: 'advanced' },
-      { name: 'Node.js', level: 'proficient' },
-      { name: 'FastAPI', level: 'advanced' },
-      { name: 'Flask', level: 'proficient' },
-    ],
-  },
-  {
-    name: 'Tools & Infrastructure',
-    items: [
-      { name: 'Git', level: 'expert' },
-      { name: 'Docker', level: 'advanced' },
-      { name: 'Jupyter', level: 'expert' },
-      { name: 'Linux', level: 'advanced' },
-      { name: 'VS Code', level: 'expert' },
-    ],
-  },
-]
+const { techStack } = siteContent
 
 function TechNode({ 
   tech, 
@@ -275,9 +227,9 @@ export function TechStack() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
         {/* Section label */}
         <div className="flex items-center gap-6 mb-16">
-          <span className="font-mono text-xs text-muted tracking-widest">03</span>
+          <span className="font-mono text-xs text-muted tracking-widest">{techStack.sectionNumber}</span>
           <div className="h-px w-24 bg-white/20" />
-          <span className="font-mono text-xs text-muted tracking-widest uppercase">Technical Arsenal</span>
+          <span className="font-mono text-xs text-muted tracking-widest uppercase">{techStack.sectionLabel}</span>
         </div>
 
         {/* Title */}
@@ -285,7 +237,7 @@ export function TechStack() {
           ref={titleRef}
           className="font-display text-display-md md:text-display-lg font-medium text-highlight mb-20 max-w-4xl"
         >
-          Tools of the craft
+          {techStack.title}
         </h2>
 
         {/* Legend */}
@@ -296,26 +248,26 @@ export function TechStack() {
               <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
             </div>
-            <span className="text-xs text-muted">Expert</span>
+            <span className="text-xs text-muted">{techStack.legend.expert}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="flex gap-0.5">
               <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
             </div>
-            <span className="text-xs text-muted">Advanced</span>
+            <span className="text-xs text-muted">{techStack.legend.advanced}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="flex gap-0.5">
               <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
             </div>
-            <span className="text-xs text-muted">Proficient</span>
+            <span className="text-xs text-muted">{techStack.legend.proficient}</span>
           </div>
         </div>
 
         {/* Tech categories grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
-          {techCategories.map((category, categoryIndex) => (
+          {techStack.categories.map((category, categoryIndex) => (
             <div key={category.name} className="space-y-6">
               <h3 className="font-display text-lg text-highlight/70 border-b border-white/10 pb-3">
                 {category.name}
@@ -337,8 +289,7 @@ export function TechStack() {
         {/* Additional skills note */}
         <div className="mt-24 pt-12 border-t border-white/10">
           <p className="text-muted text-body-md max-w-2xl">
-            Continuously expanding expertise across emerging technologies in machine learning, 
-            cloud infrastructure, and software architecture. Always learning, always building.
+            {techStack.footerNote}
           </p>
         </div>
       </div>

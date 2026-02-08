@@ -3,20 +3,16 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { siteContent } from '@/content/siteContent'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { navigation } = siteContent
 
 export function Navigation() {
   const navRef = useRef<HTMLElement>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const navItems = [
-    { label: 'About', href: '#about' },
-    { label: 'Work', href: '#projects' },
-    { label: 'Stack', href: '#stack' },
-    { label: 'Contact', href: '#contact' },
-  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +33,7 @@ export function Navigation() {
         y: 0, 
         opacity: 1, 
         duration: 1, 
-        delay: 3.5,
+        delay: 2,
         ease: 'power3.out' 
       }
     )
@@ -60,21 +56,23 @@ export function Navigation() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo - Circle with initials */}
         <a 
           href="#" 
-          className="font-display text-lg font-medium tracking-tight text-highlight hover:opacity-70 transition-opacity"
+          className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-white/60 hover:bg-white/5 transition-all duration-300"
           onClick={(e) => {
             e.preventDefault()
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         >
-          EK
+          <span className="font-display text-sm font-medium tracking-tight text-highlight">
+            {navigation.logo}
+          </span>
         </a>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+          {navigation.items.map((item) => (
             <a
               key={item.label}
               href={item.href}
@@ -105,7 +103,7 @@ export function Navigation() {
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8">
-          {navItems.map((item, index) => (
+          {navigation.items.map((item, index) => (
             <a
               key={item.label}
               href={item.href}
