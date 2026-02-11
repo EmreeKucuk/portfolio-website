@@ -27,7 +27,7 @@ export function About() {
 
     // Check if mobile for adjusted animation timing
     const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768
-    const triggerStart = isMobile ? 'top 98%' : 'top 85%'
+    const triggerStart = isMobile ? 'top 130%' : 'top 85%'
 
     // Background color transition
     gsap.to(section, {
@@ -109,7 +109,7 @@ export function About() {
         ease: 'power3.inOut',
         scrollTrigger: {
           trigger: section,
-          start: isMobile ? 'top 90%' : 'top 60%',
+          start: isMobile ? 'top 120%' : 'top 60%',
           toggleActions: 'play none none none',
         },
       }

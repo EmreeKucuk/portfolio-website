@@ -46,7 +46,7 @@ export function Contact() {
 
     // Check if mobile for adjusted animation timing
     const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768
-    const triggerStart = isMobile ? 'top 98%' : 'top 85%'
+    const triggerStart = isMobile ? 'top 130%' : 'top 85%'
 
     gsap.fromTo(
       title,
@@ -77,7 +77,7 @@ export function Contact() {
           ease: 'power3.out',
           scrollTrigger: {
             trigger: content,
-            start: isMobile ? 'top 95%' : 'top 80%',
+            start: isMobile ? 'top 125%' : 'top 80%',
             toggleActions: 'play none none none',
           },
         }

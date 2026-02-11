@@ -42,7 +42,7 @@ function TechNode({
         ease: 'power2.out',
         scrollTrigger: {
           trigger: nodeRef.current,
-          start: isMobile ? 'top 98%' : 'top 90%',
+          start: isMobile ? 'top 130%' : 'top 90%',
           toggleActions: 'play none none none', // Don't reverse on scroll back
         },
       }
@@ -216,7 +216,7 @@ export function TechStack() {
         ease: 'power3.out',
         scrollTrigger: {
           trigger: title,
-          start: isMobile ? 'top 98%' : 'top 85%',
+          start: isMobile ? 'top 130%' : 'top 85%',
           toggleActions: 'play none none none', // Don't reverse on scroll back
         },
       }
