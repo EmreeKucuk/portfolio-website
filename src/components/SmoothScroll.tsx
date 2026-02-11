@@ -6,17 +6,31 @@ interface SmoothScrollProps {
   children: ReactNode
 }
 
+// Reliable mobile detection
+function isTouchDevice(): boolean {
+  if (typeof window === 'undefined') return false
+  
+  // Check for touch capability
+  const hasTouchPoints = navigator.maxTouchPoints > 0
+  const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches
+  const hasNoHover = window.matchMedia('(hover: none)').matches
+  const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  
+  return hasTouchPoints || hasCoarsePointer || hasNoHover || isMobileUA
+}
+
 export function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<any>(null)
 
   useEffect(() => {
-    // Disable smooth scroll on mobile/touch devices for better native scrolling
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                     ('ontouchstart' in window) ||
-                     (window.innerWidth < 768)
+    // Check for mobile/touch devices
+    const isMobile = isTouchDevice()
     
     if (isMobile) {
-      // Skip Lenis on mobile - use native scrolling
+      // Ensure native scrolling works on mobile
+      document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-stopped')
+      document.body.style.overflow = ''
+      document.body.style.overflowY = 'auto'
       return
     }
 

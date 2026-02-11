@@ -22,9 +22,24 @@ export function Navigation() {
       setIsScrolled(window.scrollY > 100)
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Handle body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.overflowY = 'auto'
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.overflowY = 'auto'
+    }
+  }, [isMenuOpen])
 
   useEffect(() => {
     const nav = navRef.current

@@ -59,6 +59,7 @@ export function Preloader() {
 
     return () => {
       document.body.style.overflow = ''
+      document.body.style.overflowY = 'auto'
     }
   }, [])
 

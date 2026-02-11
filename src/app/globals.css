@@ -20,25 +20,49 @@ html {
   scroll-behavior: auto;
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
+/* Mobile-first: ensure native scrolling works */
+html,
+body {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+/* Lenis styles only for desktop */
+@media (hover: hover) and (pointer: fine) {
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
+/* Mobile scrolling fixes */
+@media (hover: none), (pointer: coarse) {
+  html,
+  body {
+    overflow-x: hidden;
+    overflow-y: auto !important;
+  }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
+  * {
+    touch-action: pan-x pan-y;
+  }
 }
 
 body {

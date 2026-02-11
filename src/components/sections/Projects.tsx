@@ -475,7 +475,13 @@ export function Projects() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+      // More reliable mobile detection
+      const isTouchDevice = 
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches ||
+        window.matchMedia('(hover: none)').matches
+      const isSmallScreen = window.innerWidth < 768
+      setIsMobile(isTouchDevice || isSmallScreen)
     }
     checkMobile()
     window.addEventListener('resize', checkMobile)
