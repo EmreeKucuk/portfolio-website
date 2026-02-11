@@ -31,34 +31,33 @@ export const siteContent = {
     about: {
       sectionNumber: '01',
       sectionLabel: 'Hakkımda',
-      title: 'Ölçeklenebilir web çözümleri ile yapay zeka arasında köprü kuruyorum.',
+      title: 'Güçlü backend mimarileri ile yapay zeka çözümleri arasında köprü kuruyorum.',
       paragraphs: [
-        `Modern web framework'leri ile veri odaklı zekanın buluştuğu entegre yazılım çözümleri 
-        geliştiriyorum. Odak noktam full-stack geliştirme, bilgisayarlı görü ve ölçeklenebilir 
-        altyapının kesişim noktasında—karmaşık algoritmaları erişilebilir, kullanıcı dostu 
-        web çözümlerine entegre eden uygulamalar geliştirmek.`,
-        `Her proje bir etki taahhüdüdür: görme engellilere yardımcı olan erişilebilir araçlar 
-        tasarlamaktan, dinamik verileri verimli bir şekilde yöneten mikroservisler dağıtmaya kadar. 
-        En iyi teknolojinin insan merkezli olduğuna inanıyorum—sorunsuz entegre, güvenilir 
-        ve gerçek sorunları çözmek için tasarlanmış.`,
-        `Şu anda Derin Öğrenme ve NLP'nin sınırlarını keşfediyorum, karmaşık veri işleme ile 
-        pratik, günlük kullanım arasında köprü kuran sistemler oluşturuyorum.`,
+        `Modern web teknolojilerini yapay zeka ile birleştiren çözümler geliştiriyorum. 
+      Odak noktam; güçlü bir backend altyapısı kurmak ve karmaşık yapay zeka algoritmalarını, 
+      son kullanıcının rahatça kullanabileceği web arayüzlerine dönüştürmek.`,
+        `Geliştirdiğim her projede gerçek bir soruna çözüm üretmeyi hedefliyorum. 
+      Görme engelliler için geliştirdiğim sesli asistan uygulamasından, büyük verileri 
+      yöneten servislere kadar; amacım her zaman insanların hayatını kolaylaştıran, 
+      işlevsel teknolojiler üretmek.`,
+        `Şu anda Derin Öğrenme ve Doğal Dil İşleme (NLP) alanlarında kendimi geliştirmeye 
+      devam ediyor, öğrendiğim teorik bilgileri pratik ve çalışan uygulamalara dönüştürüyorum.`,
       ],
       focusAreas: [
         {
-          title: 'Bilgisayarlı Görü & Yapay Zeka',
-          description: `Nesne tespiti ve NLP görevleri için sinir ağları uyguluyorum. 
-          YOLO modellerinden konuşma sentezine, gerçek dünya ile etkileşen sistemler geliştiriyorum.`,
+          title: 'Görüntü İşleme & Yapay Zeka',
+          description: `Yapay zeka modellerini gerçek hayata uyarlıyorum. YOLO ile nesne tanıma 
+        ve sesli asistanlar gibi teknolojileri projelerime entegre ediyorum.`,
         },
         {
-          title: 'Full-Stack Mühendislik',
-          description: `Uçtan uca uygulama geliştirme: React frontend'lerini Spring Boot 
-          backend'leriyle bağlamak. Yapay zekayı duyarlı web arayüzleri ile erişilebilir kılmak.`,
+          title: 'Full-Stack Geliştirme',
+          description: `React ile modern arayüzler tasarlıyor, bunları Spring Boot altyapısıyla 
+        birleştirerek uçtan uca, çalışan sistemler kuruyorum.`,
         },
         {
           title: 'Backend Sistemleri',
-          description: `Ölçeklenebilir, konteynerize mikroservisler geliştiriyorum. Temiz Java 
-          mimarisi, optimize edilmiş veritabanları ve güvenilirlik ile performans sağlayan altyapı.`,
+          description: `Temiz ve sürdürülebilir kod yazmaya odaklanıyorum. Veritabanı optimizasyonu 
+        ve mikroservis mimarileriyle performansı yüksek sistemler kuruyorum.`,
         },
       ],
     },
@@ -149,7 +148,7 @@ export const siteContent = {
           ],
         },
       ],
-      footerNote: 'Full-stack teknolojileri, bulut hizmetleri ve yapay zeka entegrasyonu konusunda sürekli gelişen uzmanlık. Her zaman öğreniyor, her zaman geliştiriyorum.',
+      footerNote: 'Full-Stack, bulut teknolojileri ve yapay zeka alanlarında sürekli yeni şeyler öğreniyor ve üretiyorum.',
     },
 
     // === CONTACT SECTION ===
