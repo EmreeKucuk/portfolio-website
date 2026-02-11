@@ -25,6 +25,10 @@ export function About() {
 
     if (!section || !title || !content || !stats) return
 
+    // Check if mobile for adjusted animation timing
+    const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768
+    const triggerStart = isMobile ? 'top 98%' : 'top 85%'
+
     // Background color transition
     gsap.to(section, {
       backgroundColor: '#0f0f0f',
@@ -39,16 +43,16 @@ export function About() {
     // Title animation
     gsap.fromTo(
       title,
-      { y: 100, opacity: 0 },
+      { y: isMobile ? 40 : 100, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: isMobile ? 0.6 : 1,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: title,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          start: triggerStart,
+          toggleActions: 'play none none none',
         },
       }
     )
@@ -58,17 +62,17 @@ export function About() {
     paragraphs.forEach((p, i) => {
       gsap.fromTo(
         p,
-        { y: 60, opacity: 0 },
+        { y: isMobile ? 30 : 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
-          delay: i * 0.2,
+          duration: isMobile ? 0.5 : 1,
+          delay: isMobile ? i * 0.1 : i * 0.2,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: p,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            start: triggerStart,
+            toggleActions: 'play none none none',
           },
         }
       )
@@ -79,17 +83,17 @@ export function About() {
     statItems.forEach((stat, i) => {
       gsap.fromTo(
         stat,
-        { y: 40, opacity: 0 },
+        { y: isMobile ? 20 : 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: i * 0.1,
+          duration: isMobile ? 0.4 : 0.8,
+          delay: isMobile ? i * 0.05 : i * 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: stats,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            start: triggerStart,
+            toggleActions: 'play none none none',
           },
         }
       )
@@ -101,12 +105,12 @@ export function About() {
       { scaleX: 0 },
       {
         scaleX: 1,
-        duration: 1.5,
+        duration: isMobile ? 0.8 : 1.5,
         ease: 'power3.inOut',
         scrollTrigger: {
           trigger: section,
-          start: 'top 60%',
-          toggleActions: 'play none none reverse',
+          start: isMobile ? 'top 90%' : 'top 60%',
+          toggleActions: 'play none none none',
         },
       }
     )

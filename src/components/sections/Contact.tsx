@@ -44,18 +44,22 @@ export function Contact() {
 
     if (!title || !content) return
 
+    // Check if mobile for adjusted animation timing
+    const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768
+    const triggerStart = isMobile ? 'top 98%' : 'top 85%'
+
     gsap.fromTo(
       title,
-      { y: 100, opacity: 0 },
+      { y: isMobile ? 40 : 100, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: isMobile ? 0.6 : 1,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: title,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          start: triggerStart,
+          toggleActions: 'play none none none',
         },
       }
     )
@@ -64,17 +68,17 @@ export function Contact() {
     elements.forEach((el, i) => {
       gsap.fromTo(
         el,
-        { y: 50, opacity: 0 },
+        { y: isMobile ? 25 : 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: i * 0.1,
+          duration: isMobile ? 0.4 : 0.8,
+          delay: isMobile ? i * 0.05 : i * 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: content,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
+            start: isMobile ? 'top 95%' : 'top 80%',
+            toggleActions: 'play none none none',
           },
         }
       )

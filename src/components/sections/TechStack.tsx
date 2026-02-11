@@ -23,24 +23,27 @@ function TechNode({
   useEffect(() => {
     if (!nodeRef.current) return
 
+    // Check if mobile for adjusted animation timing
+    const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768
+
     gsap.fromTo(
       nodeRef.current,
       { 
         opacity: 0, 
-        scale: 0,
-        y: 30 
+        scale: 0.8,
+        y: 20 
       },
       {
         opacity: 1,
         scale: 1,
         y: 0,
-        duration: 0.6,
-        delay: (categoryIndex * 0.2) + (index * 0.08),
-        ease: 'back.out(1.7)',
+        duration: isMobile ? 0.4 : 0.6,
+        delay: isMobile ? (categoryIndex * 0.1) + (index * 0.03) : (categoryIndex * 0.2) + (index * 0.08),
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: nodeRef.current,
-          start: 'top 90%',
-          toggleActions: 'play none none reverse',
+          start: isMobile ? 'top 98%' : 'top 90%',
+          toggleActions: 'play none none none', // Don't reverse on scroll back
         },
       }
     )
@@ -201,18 +204,20 @@ export function TechStack() {
     const title = titleRef.current
     if (!title) return
 
+    const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768
+
     gsap.fromTo(
       title,
-      { y: 80, opacity: 0 },
+      { y: 40, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: isMobile ? 0.6 : 1,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: title,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          start: isMobile ? 'top 98%' : 'top 85%',
+          toggleActions: 'play none none none', // Don't reverse on scroll back
         },
       }
     )
