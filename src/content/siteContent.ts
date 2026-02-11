@@ -22,7 +22,7 @@ export const siteContent = {
   // === HERO SECTION ===
   hero: {
     name: 'Emre Küçük',
-    subtitle: 'Engineering Intelligent Systems',
+    subtitle: 'Software Engineer | AI & Full-Stack Developer',
     scrollIndicator: 'Scroll',
   },
 
@@ -30,34 +30,34 @@ export const siteContent = {
   about: {
     sectionNumber: '01',
     sectionLabel: 'About',
-    title: 'Building systems that think, learn, and scale.',
+    title: 'Bridging the gap between scalable web solutions and artificial intelligence.',
     paragraphs: [
-      `I architect intelligent systems where machine learning meets production-grade engineering. 
-      My focus lies at the intersection of deep learning, natural language processing, and 
-      scalable infrastructure—building AI that doesn't just work in notebooks, but thrives 
-      in the real world.`,
-      `Every project is an exercise in precision: from designing neural architectures that 
-      capture semantic meaning, to deploying models that serve millions of predictions 
-      with sub-second latency. I believe the best AI systems are invisible—seamlessly 
-      integrated, rigorously tested, and built to evolve.`,
-      `Currently exploring the frontiers of computer vision, speech recognition, and 
-      multimodal AI systems that bridge the gap between human intuition and machine intelligence.`,
+      `I engineer integrated software solutions where modern web frameworks meet data-driven 
+      intelligence. My focus lies at the intersection of full-stack development, computer vision, 
+      and scalable infrastructure—building applications that integrate complex algorithms 
+      into accessible, user-friendly web solutions.`,
+      `Every project is a commitment to impact: from designing accessible tools that assist 
+      the visually impaired, to deploying microservices that manage dynamic data efficiently. 
+      I believe the best technology is human-centric—seamlessly integrated, reliable, 
+      and built to solve actual problems.`,
+      `Currently exploring the frontiers of Deep Learning and NLP, creating systems that 
+      bridge the gap between complex data processing and practical, everyday utility.`,
     ],
     focusAreas: [
       {
-        title: 'Deep Learning',
-        description: `Designing and training neural networks for computer vision, NLP, and multimodal applications. 
-        From CNNs to Transformers, building models that understand.`,
+        title: 'Computer Vision & AI',
+        description: `Implementing neural networks for object detection and NLP tasks. 
+        From YOLO models to speech synthesis, building systems that interact with the real world.`,
       },
       {
-        title: 'AI Engineering',
-        description: `End-to-end machine learning pipelines: data processing, model training, optimization, 
-        and deployment. Making AI production-ready.`,
+        title: 'Full-Stack Engineering',
+        description: `End-to-end application development: connecting React frontends with 
+        Spring Boot backends. Making AI accessible through responsive web interfaces.`,
       },
       {
-        title: 'System Architecture',
-        description: `Building scalable, maintainable software systems. Clean code, robust APIs, 
-        and infrastructure that grows with demand.`,
+        title: 'Backend Systems',
+        description: `Building scalable, containerized microservices. Clean Java architecture, 
+        optimized databases, and infrastructure that ensures reliability and performance.`,
       },
     ],
   },
@@ -114,8 +114,7 @@ export const siteContent = {
         ],
       },
     ],
-    footerNote: `Continuously expanding expertise across emerging technologies in machine learning, 
-    cloud infrastructure, and software architecture. Always learning, always building.`,
+    footerNote: 'Continuously expanding expertise across full-stack technologies, cloud services, and AI integration. Always learning, always building.',
   },
 
   // === CONTACT SECTION ===
@@ -126,7 +125,7 @@ export const siteContent = {
     description: `Open to discussing new projects, creative collaborations, or opportunities 
     to contribute to ambitious AI and engineering initiatives.`,
     ctaButton: 'Start a conversation',
-    email: 'contact@emrekucuk.dev',
+    email: 'emrekucuk2003@gmail.com',
     links: [
       {
         label: 'GitHub',
@@ -134,11 +133,11 @@ export const siteContent = {
       },
       {
         label: 'LinkedIn',
-        href: 'https://linkedin.com/in/emrekucuk',
+        href: 'https://linkedin.com/in/emrekucuk03',
       },
       {
         label: 'Email',
-        href: 'mailto:contact@emrekucuk.dev',
+        href: 'mailto:emrekucuk2003@gmail.com',
       },
     ],
     location: {
