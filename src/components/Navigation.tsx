@@ -4,12 +4,15 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { siteContent } from '@/content/siteContent'
+import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { navigation } = siteContent
-
 export function Navigation() {
+  const { language, toggleLanguage } = useLanguage()
+  const content = siteContent[language]
+  const { navigation } = content
+  
   const navRef = useRef<HTMLElement>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -83,17 +86,35 @@ export function Navigation() {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-highlight transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
+          
+          {/* Language Toggle */}
+          <button
+            onClick={toggleLanguage}
+            className="ml-4 px-3 py-1.5 text-xs font-mono border border-white/20 rounded-full hover:border-white/50 hover:bg-white/5 transition-all duration-300 text-muted hover:text-highlight"
+            aria-label="Toggle language"
+          >
+            {language === 'tr' ? 'EN' : 'TR'}
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-1.5"
-          aria-label="Toggle menu"
-        >
-          <span className={`w-6 h-px bg-highlight transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-[4px]' : ''}`} />
-          <span className={`w-6 h-px bg-highlight transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
-        </button>
+        {/* Language Toggle (Mobile) + Mobile Menu Button */}
+        <div className="md:hidden flex items-center gap-4">
+          <button
+            onClick={toggleLanguage}
+            className="px-3 py-1.5 text-xs font-mono border border-white/20 rounded-full hover:border-white/50 hover:bg-white/5 transition-all duration-300 text-muted hover:text-highlight"
+            aria-label="Toggle language"
+          >
+            {language === 'tr' ? 'EN' : 'TR'}
+          </button>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+            aria-label="Toggle menu"
+          >
+            <span className={`w-6 h-px bg-highlight transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-[4px]' : ''}`} />
+            <span className={`w-6 h-px bg-highlight transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

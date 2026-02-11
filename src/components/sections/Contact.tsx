@@ -4,12 +4,15 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { siteContent } from '@/content/siteContent'
+import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { contact } = siteContent
-
 export function Contact() {
+  const { language } = useLanguage()
+  const content = siteContent[language]
+  const { contact } = content
+  
   const sectionRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)

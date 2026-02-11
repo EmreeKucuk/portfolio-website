@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { siteContent } from '@/content/siteContent'
-
-const { preloader } = siteContent
+import { useLanguage } from '@/context/LanguageContext'
 
 export function Preloader() {
+  const { language } = useLanguage()
+  const content = siteContent[language]
+  const { preloader } = content
   const preloaderRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)

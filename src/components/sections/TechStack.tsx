@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { siteContent, TechCategory } from '@/content/siteContent'
+import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const { techStack } = siteContent
 
 function TechNode({ 
   tech, 
@@ -191,6 +190,10 @@ function DataFlowVisualization() {
 }
 
 export function TechStack() {
+  const { language } = useLanguage()
+  const content = siteContent[language]
+  const { techStack } = content
+  
   const sectionRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 

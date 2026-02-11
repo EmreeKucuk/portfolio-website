@@ -4,12 +4,14 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { siteContent } from '@/content/siteContent'
+import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { hero } = siteContent
-
 export function Hero() {
+  const { language } = useLanguage()
+  const content = siteContent[language]
+  const { hero } = content
   const sectionRef = useRef<HTMLElement>(null)
   const nameRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLDivElement>(null)

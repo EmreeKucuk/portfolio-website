@@ -10,6 +10,16 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<any>(null)
 
   useEffect(() => {
+    // Disable smooth scroll on mobile/touch devices for better native scrolling
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     ('ontouchstart' in window) ||
+                     (window.innerWidth < 768)
+    
+    if (isMobile) {
+      // Skip Lenis on mobile - use native scrolling
+      return
+    }
+
     // Dynamic import for Lenis to avoid SSR issues
     const initLenis = async () => {
       const Lenis = (await import('lenis')).default

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { SmoothScroll } from '@/components/SmoothScroll'
+import { Providers } from '@/components/Providers'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://emrekucuk.dev',
+    url: 'https://emre-kucuk.com',
     siteName: 'Emre Küçük',
     title: 'Emre Küçük — Engineering Intelligent Systems',
     description: 'Building robust, scalable AI systems with precision engineering.',
@@ -67,11 +68,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang="tr" className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body className="antialiased">
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <Providers>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+        </Providers>
       </body>
     </html>
   )

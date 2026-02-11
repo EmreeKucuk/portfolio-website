@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { siteContent } from '@/content/siteContent'
+import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,44 +18,26 @@ interface Project {
   link: string
 }
 
-const projects: Project[] = [
-  {
-    id: 'deep-learning',
-    title: 'Deep Learning Research',
-    category: 'Neural Networks',
-    description: 'Advanced deep learning implementations exploring cutting-edge architectures. From convolutional networks for image analysis to recurrent models for sequence processing.',
-    technologies: ['Python', 'TensorFlow', 'PyTorch', 'Jupyter'],
-    visualization: 'neural',
-    link: 'https://github.com/EmreeKucuk/deep-learning-lab2',
-  },
-  {
-    id: 'image-recognition',
-    title: 'Vision for Accessibility',
-    category: 'Computer Vision',
-    description: 'Image recognition system designed to assist visually impaired users. Leveraging state-of-the-art object detection and scene understanding to describe the visual world.',
-    technologies: ['Python', 'OpenCV', 'TensorFlow', 'Speech Synthesis'],
-    visualization: 'vision',
-    link: 'https://github.com/EmreeKucuk/image-recog-for-blind',
-  },
-  {
-    id: 'speech-recognition',
-    title: 'Speech Recognition Engine',
-    category: 'Natural Language Processing',
-    description: 'Real-time speech-to-text system with natural language understanding. Processing audio signals and converting them into actionable text with high accuracy.',
-    technologies: ['Python', 'SpeechRecognition', 'NLP', 'Audio Processing'],
-    visualization: 'nlp',
-    link: 'https://github.com/EmreeKucuk/speech-recognition-test',
-  },
-  {
-    id: 'snake-ai',
-    title: 'AI Game Arena',
-    category: 'Reinforcement Learning',
-    description: 'AI agents competing in classic game environments. Implementing reinforcement learning algorithms that learn optimal strategies through self-play and exploration.',
-    technologies: ['TypeScript', 'Machine Learning', 'Game AI', 'Neural Networks'],
-    visualization: 'game',
-    link: 'https://github.com/EmreeKucuk/snake-ai-arena',
-  },
-]
+const projectLinks = {
+  'deep-learning': 'https://github.com/EmreeKucuk/deep-learning-lab2',
+  'image-recognition': 'https://github.com/EmreeKucuk/image-recog-for-blind',
+  'speech-recognition': 'https://github.com/EmreeKucuk/speech-recognition-test',
+  'snake-ai': 'https://github.com/EmreeKucuk/snake-ai-arena',
+}
+
+const projectVisualizations = {
+  'deep-learning': 'neural' as const,
+  'image-recognition': 'vision' as const,
+  'speech-recognition': 'nlp' as const,
+  'snake-ai': 'game' as const,
+}
+
+const projectTechnologies = {
+  'deep-learning': ['Python', 'TensorFlow', 'PyTorch', 'Jupyter'],
+  'image-recognition': ['Python', 'OpenCV', 'TensorFlow', 'Speech Synthesis'],
+  'speech-recognition': ['Python', 'SpeechRecognition', 'NLP', 'Audio Processing'],
+  'snake-ai': ['TypeScript', 'Machine Learning', 'Game AI', 'Neural Networks'],
+}
 
 function PipelineVisualization() {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -469,6 +453,21 @@ function ProjectVisualization({ type }: { type: Project['visualization'] }) {
 }
 
 export function Projects() {
+  const { language } = useLanguage()
+  const content = siteContent[language]
+  const { projects: projectsContent } = content
+  
+  // Build projects array from content
+  const projects: Project[] = projectsContent.items.map((item) => ({
+    id: item.id,
+    title: item.title,
+    category: item.category,
+    description: item.description,
+    technologies: projectTechnologies[item.id as keyof typeof projectTechnologies] || [],
+    visualization: projectVisualizations[item.id as keyof typeof projectVisualizations] || 'neural',
+    link: projectLinks[item.id as keyof typeof projectLinks] || '#',
+  }))
+  
   const sectionRef = useRef<HTMLElement>(null)
   const horizontalRef = useRef<HTMLDivElement>(null)
   const panelsRef = useRef<HTMLDivElement>(null)
@@ -567,12 +566,12 @@ export function Projects() {
       {/* Section header */}
       <div className="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="flex items-center gap-6 mb-8">
-          <span className="font-mono text-xs text-muted tracking-widest">02</span>
+          <span className="font-mono text-xs text-muted tracking-widest">{projectsContent.sectionNumber}</span>
           <div className="h-px w-24 bg-white/20" />
-          <span className="font-mono text-xs text-muted tracking-widest uppercase">Selected Work</span>
+          <span className="font-mono text-xs text-muted tracking-widest uppercase">{projectsContent.sectionLabel}</span>
         </div>
         <h2 className="font-display text-display-md md:text-display-lg font-medium text-highlight max-w-4xl">
-          Projects that push boundaries
+          {projectsContent.title}
         </h2>
       </div>
 
@@ -623,7 +622,7 @@ export function Projects() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 text-sm text-highlight hover:opacity-70 transition-opacity group"
               >
-                <span>View Project</span>
+                <span>{projectsContent.viewProject}</span>
                 <svg 
                   className="w-4 h-4 transition-transform group-hover:translate-x-1" 
                   fill="none" 
@@ -692,7 +691,7 @@ export function Projects() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-3 text-sm text-highlight hover:opacity-70 transition-opacity group"
                     >
-                      <span>View Project</span>
+                      <span>{projectsContent.viewProject}</span>
                       <svg 
                         className="w-4 h-4 transition-transform group-hover:translate-x-1" 
                         fill="none" 
