@@ -8,7 +8,7 @@ A high-end, immersive portfolio website showcasing expertise in MLOps, Deep Lear
 - **Styling:** Tailwind CSS
 - **Animations:** GSAP with ScrollTrigger
 - **Smooth Scrolling:** Lenis
-- **Deployment:** Firebase Hosting
+- **Deployment:** Cloudflare Pages
 
 ## ✨ Features
 
@@ -48,36 +48,56 @@ npm run build
 
 The static files will be generated in the `out` directory.
 
-## 🔥 Firebase Deployment
+## 🌐 Cloudflare Pages Deployment
 
-### Setup
+This project is configured for automatic deployment on Cloudflare Pages.
 
-1. Install Firebase CLI:
+### Automatic Deployment (Recommended)
+
+1. **Connect GitHub Repository:**
+   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/)
+   - Navigate to **Workers & Pages** > **Create application** > **Pages**
+   - Click **Connect to Git**
+   - Select your GitHub repository
+   - Configure build settings:
+     - **Production branch:** `main`
+     - **Build command:** `npm run build`
+     - **Build output directory:** `out`
+
+2. **Environment Variables (if needed):**
+   - Add any required environment variables in the Cloudflare dashboard
+
+3. **Deploy:**
+   - Every push to `main` branch will trigger an automatic deployment
+   - Preview deployments are created for pull requests
+
+### Manual Deployment
+
 ```bash
-npm install -g firebase-tools
-```
+# Install Wrangler CLI
+npm install -g wrangler
 
-2. Login to Firebase:
-```bash
-firebase login
-```
-
-3. Update `.firebaserc` with your project ID:
-```json
-{
-  "projects": {
-    "default": "your-firebase-project-id"
-  }
-}
-```
-
-### Deploy
-
-```bash
-# Build and deploy
+# Build the project
 npm run build
-firebase deploy
+
+# Deploy to Cloudflare Pages
+npx wrangler pages deploy out --project-name your-project-name
 ```
+
+### First-time Setup
+
+```bash
+# Login to Cloudflare
+npx wrangler login
+
+# Create a new Pages project
+npx wrangler pages project create your-project-name --production-branch main
+
+# Deploy
+npx wrangler pages deploy out --project-name your-project-name
+```
+
+Your site will be available at `https://your-project-name.pages.dev`
 
 ## 📁 Project Structure
 
