@@ -106,7 +106,7 @@ export function Contact() {
       className="relative min-h-screen flex items-center py-32 md:py-48"
     >
       {/* Background pattern */}
-      <div className="absolute inset-0 grid-pattern opacity-50" />
+      <div className="absolute inset-0 grid-pattern opacity-50 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
         {/* Section label */}

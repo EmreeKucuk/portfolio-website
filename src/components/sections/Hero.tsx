@@ -201,7 +201,7 @@ export function Hero() {
       {/* Particle canvas background */}
       <canvas 
         ref={canvasRef}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 pointer-events-none"
       />
 
       {/* Gradient overlay */}

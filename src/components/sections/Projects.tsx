@@ -76,7 +76,7 @@ function PipelineVisualization() {
   }, [])
 
   return (
-    <svg ref={svgRef} viewBox="0 0 400 200" className="w-full h-full">
+    <svg ref={svgRef} viewBox="0 0 400 200" className="w-full h-full pointer-events-none">
       <defs>
         <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
@@ -134,7 +134,7 @@ function NLPVisualization() {
   }, [])
 
   return (
-    <div ref={containerRef} className="flex flex-wrap gap-3 justify-center items-center h-full p-8">
+    <div ref={containerRef} className="flex flex-wrap gap-3 justify-center items-center h-full p-8 pointer-events-none">
       {words.map((word, i) => (
         <div key={i} className="nlp-token relative">
           <span className="font-mono text-lg md:text-xl text-highlight/80 px-4 py-2 border border-white/10 rounded">
@@ -236,7 +236,7 @@ function VisionVisualization() {
     return () => cancelAnimationFrame(animationId)
   }, [])
 
-  return <canvas ref={canvasRef} className="w-full h-full" />
+  return <canvas ref={canvasRef} className="w-full h-full pointer-events-none" />
 }
 
 function NeuralVisualization() {
@@ -279,7 +279,7 @@ function NeuralVisualization() {
   ]
 
   return (
-    <svg ref={svgRef} viewBox="0 0 400 220" className="w-full h-full">
+    <svg ref={svgRef} viewBox="0 0 400 220" className="w-full h-full pointer-events-none">
       {/* Connections */}
       {layers.slice(0, 4).map((from, i) =>
         layers.slice(4, 9).map((to, j) => (
@@ -432,7 +432,7 @@ function GameVisualization() {
     return () => cancelAnimationFrame(animationId)
   }, [])
 
-  return <canvas ref={canvasRef} className="w-full h-full" />
+  return <canvas ref={canvasRef} className="w-full h-full pointer-events-none" />
 }
 
 function ProjectVisualization({ type }: { type: Project['visualization'] }) {

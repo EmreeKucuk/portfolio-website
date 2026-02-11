@@ -184,7 +184,7 @@ function DataFlowVisualization() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full opacity-40"
+      className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
     />
   )
 }
